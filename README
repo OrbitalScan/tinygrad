@@ -1,4 +1,5 @@
 Just Learning tinygrad 
 
 [X] Duplicate the basic structure of the Tensor class
+[ ] Implement the backprop method
 
