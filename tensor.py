@@ -44,6 +44,13 @@ class Tensor:
     if len(self._ctx.parents) == 1:
       grads = [grads]
     for t,g in zip(self._ctx.parents, grads):
+
+
+      print('*'*100)
+      print(g)
+
+      print('*'*100)
+
       if g.shape != t.data.shape:
         print("grad shape must match tensor shape in %r, %r != %r" % (self._ctx.arg, g.shape, t.data.shape))
         assert(False)
