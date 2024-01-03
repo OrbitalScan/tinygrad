@@ -1,5 +1,6 @@
 Just Learning tinygrad 
 
 [X] Duplicate the basic structure of the Tensor class
+[X] Implement all the operator and test against the tinygrad codebase
 [ ] Implement the backprop method
 
