@@ -1,4 +1,4 @@
-For something in between a grad and a karpathy/micrograd
+Just Learning tinygrad 
 
-Requires numpy
+[X] Duplicate the basic structure of the Tensor class
 
