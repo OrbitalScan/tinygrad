@@ -53,6 +53,7 @@ class Tensor:
 class Function:
   def apply(self, arg, *x):
     ctx = Context(arg, self, *x)
+    # ret = Tensor(arg.forward(ctx, self.data, *[t.data for t in x]))
     ret = Tensor(arg.forward(ctx, self.data, *[t.data for t in x]))
     ret._ctx = ctx
     return ret
@@ -62,6 +63,7 @@ def register(name, fxn):
 
 # **** implement a few functions ****
 
+# -----------------------------------------------------------------------
 class Mul(Function):
   @staticmethod
   def forward(ctx, x, y):
@@ -72,9 +74,12 @@ class Mul(Function):
   def backward(ctx, grad_output):
     x,y = ctx.saved_tensors
     return y*grad_output, x*grad_output
+  
+
 register('mul', Mul)
 
     
+# -----------------------------------------------------------------------
 class ReLU(Function):
   @staticmethod
   def forward(ctx, input):
@@ -89,6 +94,7 @@ class ReLU(Function):
     return grad_input
 register('relu', ReLU)
 
+# ----------------------------------------------------------------------------
 class Dot(Function):
   @staticmethod
   def forward(ctx, input, weight):
@@ -103,6 +109,7 @@ class Dot(Function):
     return grad_input, grad_weight
 register('dot', Dot)
 
+# ----------------------------------------------------------------------------
 class Sum(Function):
   @staticmethod
   def forward(ctx, input):
@@ -115,6 +122,7 @@ class Sum(Function):
     return grad_output * np.ones_like(input)
 register('sum', Sum)
 
+# ----------------------------------------------------------------------------
 class LogSoftmax(Function):
   @staticmethod
   def forward(ctx, input):
@@ -131,3 +139,4 @@ class LogSoftmax(Function):
     return grad_output - np.exp(output)*grad_output.sum(axis=1).reshape((-1, 1))
 register('logsoftmax', LogSoftmax)
 
+# ----------------------------------------------------------------------------
